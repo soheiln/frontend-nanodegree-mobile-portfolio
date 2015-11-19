@@ -9,3 +9,4 @@ Optimizations made on index.html to achieve a PageSpeed score of 90+:
 
 Optimizations made in views/js/main.js:
 - Changed the implementation of changePizzaSizes function to take randomPizzaContainers and newwidth as input parameters. This is to improve performance by avoiding unnecessary/repetitive looping for finding elements and calculating their widths.
+- Refactored updatePositions() function in views/js/main.js to calculate scrollTop variable once before the loop to avoid forced sync layout
