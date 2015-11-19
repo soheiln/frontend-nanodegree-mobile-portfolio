@@ -1,0 +1,5 @@
+This file includes the list of optimizations I have done to achieve a PageSpeed score of 90+:
+- removed render-blocking javascripts from <head> to after <body>
+- changed the loading of google analytics js to be async
+- added media query for print css to make it non-blocking
+
