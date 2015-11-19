@@ -4,3 +4,4 @@ This file includes the list of optimizations I have done to achieve a PageSpeed 
 - added media query for print css to make it non-blocking
 - Resized and compressed pizzeria-small.jpg for index.html
 - compressed pizzeria.jpg and profilepic.jpg
+- Made non-print css inline since the size was small
