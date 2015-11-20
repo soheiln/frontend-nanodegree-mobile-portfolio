@@ -142,6 +142,8 @@ pizzaIngredients.crusts = [
   "Stuffed Crust"
 ];
 
+var movingPizzas;
+
 // Name generator pulled from http://saturdaykid.com/usernames/generator.html
 // Capitalizes first letter of each word
 String.prototype.capitalize = function() {
@@ -448,17 +450,6 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-  /*TODO:remove
-  // Iterates through pizza elements on the page and changes their widths
-  function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
-    }
-  }
-  */
-
   //Iterates through elements of the given array and changes their widths
   //For performance consideratiosn this implementation requires the elemArray
   //and newwidth as input parameters to avoid unnecessary additianal looping
@@ -467,7 +458,6 @@ var resizePizzas = function(size) {
       pcArray[i].style.width = newwidth;
     }
   }
-
 
   //create a array variable for ".randomPizzaContainer" to be used later
   var pcArray = document.querySelectorAll(".randomPizzaContainer");
@@ -523,12 +513,15 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
 
-  var items = document.querySelectorAll('.mover');
+  // var items = document.getElementsByClassName('mover');
+  // var items = document.getElementById('movingPizzas1').getElementsByClassName('mover');
+  var items = movingPizzas;
 
   //calculated scrollTop variable once before the loop to avoid forced sync layout
   var scrollTop = document.body.scrollTop;
+  var phase_offset = scrollTop / 1250;
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((scrollTop / 1250) + (i % 5));
+    var phase = Math.sin(phase_offset + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -549,7 +542,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 25; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -559,5 +552,6 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
+  movingPizzas = document.querySelectorAll('.mover'); //global array variable calculated once and used in each frame
   updatePositions();
 });
